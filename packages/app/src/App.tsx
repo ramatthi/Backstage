@@ -37,6 +37,10 @@ import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 
+import Bookings from './components/home/Bookings'
+import { githubAuthApiRef } from '@backstage/core-plugin-api';
+
+
 const app = createApp({
   apis,
   bindRoutes({ bind }) {
@@ -57,12 +61,23 @@ const app = createApp({
     });
   },
   components: {
-    SignInPage: props => <SignInPage {...props} auto providers={['guest']} />,
+    SignInPage: props => 
+      <SignInPage
+        {...props}
+        auto
+        provider={{
+          id: 'github-auth-provider',
+          title: 'GitHub',
+          message: 'Sign in using GitHub',
+          apiRef: githubAuthApiRef,
+        }}
+      />
   },
 });
 
 const routes = (
   <FlatRoutes>
+       <Route path="/bookings" element={<Bookings />} />
     <Route path="/" element={<Navigate to="catalog" />} />
     <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route

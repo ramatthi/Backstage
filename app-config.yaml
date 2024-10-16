@@ -28,8 +28,15 @@ backend:
   # This is for local development only, it is not recommended to use this in production
   # The production database configuration is stored in app-config.production.yaml
   database:
-    client: better-sqlite3
-    connection: ':memory:'
+    # client: better-sqlite3
+    # connection: ':memory:'
+
+    client: pg
+    connection:
+      host: 'localhost'
+      port: '5432'
+      user: 'postgres'
+      password: '12345'
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
 integrations:
@@ -67,6 +74,15 @@ auth:
   providers:
     # See https://backstage.io/docs/auth/guest/provider
     guest: {}
+       github:
+       development:
+        clientId: Ov23li8OkJrQXMSBYokA
+        clientSecret: 02f33b65a992dd429cf34ab16e6cb0337f27be03
+        signIn:
+          resolvers:
+            # Matches the GitHub username with the Backstage user entity name.
+            # See https://backstage.io/docs/auth/github/provider#resolvers for more resolvers.
+            - resolver: usernameMatchingUserEntityName
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
