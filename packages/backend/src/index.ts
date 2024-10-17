@@ -96,3 +96,7 @@ const myAuthProviderModule = createBackendModule({
     });
   },
 });
+
+function stringifyEntityRef(arg0: { kind: string; name: any; namespace: any; }) {
+  throw new Error('Function not implemented.');
+}
