@@ -1,9 +1,9 @@
 app:
-  title: Scaffolded Backstage App
+  title: Volta Dashboard
   baseUrl: http://localhost:3000
 
 organization:
-  name: My Company
+  name: VOLTA
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -72,18 +72,23 @@ techdocs:
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
   providers:
+    keycloak:
+        development:
+          clientId: backstage_ui
+          clientSecret: MhRayfeCBx3GrErmwMi1IWuCmfwLLHfz
+          issuer: https://dev-auth.voltacabs.com/realms/voltacabs
     # See https://backstage.io/docs/auth/guest/provider
-    guest: {}
-       github:
-       development:
-        clientId: Ov23li8OkJrQXMSBYokA
-        clientSecret: 02f33b65a992dd429cf34ab16e6cb0337f27be03
-        signIn:
-          resolvers:
-            # Matches the GitHub username with the Backstage user entity name.
-            # See https://backstage.io/docs/auth/github/provider#resolvers for more resolvers.
-            - resolver: usernameMatchingUserEntityName
-
+      # guest: {}
+      # github:
+      #   development:
+      #     clientId: Ov23li8OkJrQXMSBYokA
+      #     clientSecret: 02f33b65a992dd429cf34ab16e6cb0337f27be03
+      #     signIn:
+      #       resolvers:
+      #         # Matches the GitHub username with the Backstage user entity name.
+      #         # See https://backstage.io/docs/auth/github/provider#resolvers for more resolvers.
+      #         - resolver: usernameMatchingUserEntityName
+      
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 

@@ -36,6 +36,7 @@ import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
+import { oidcAuthApiRef } from './apis';
 
 import Bookings from './components/home/Bookings'
 import { githubAuthApiRef } from '@backstage/core-plugin-api';
@@ -66,10 +67,10 @@ const app = createApp({
         {...props}
         auto
         provider={{
-          id: 'github-auth-provider',
-          title: 'GitHub',
-          message: 'Sign in using GitHub',
-          apiRef: githubAuthApiRef,
+          id: 'keycloak',
+          title: 'keycloak',
+          message: 'Sign in using keycloak',
+          apiRef: oidcAuthApiRef,
         }}
       />
   },

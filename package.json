@@ -55,6 +55,7 @@
   },
   "packageManager": "yarn@4.4.1",
   "dependencies": {
+    "@backstage/plugin-auth-backend": "^0.23.1",
     "@mui/icons-material": "^6.1.3"
   }
 }
