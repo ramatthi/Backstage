@@ -39,7 +39,6 @@ import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/
 import { oidcAuthApiRef } from './apis';
 
 import Bookings from './components/home/Bookings'
-import { githubAuthApiRef } from '@backstage/core-plugin-api';
 
 
 const app = createApp({
@@ -74,7 +73,7 @@ const app = createApp({
         }}
       />
   },
-});
+}); 
 
 const routes = (
   <FlatRoutes>

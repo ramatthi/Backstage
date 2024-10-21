@@ -10,9 +10,14 @@ import { createBackend } from '@backstage/backend-defaults';
 import { createBackendModule } from '@backstage/backend-plugin-api';
 import { authProvidersExtensionPoint, createOAuthProviderFactory } from '@backstage/plugin-auth-node';
 import { oidcAuthenticator } from '@backstage/plugin-auth-backend-module-oidc-provider'
-
+import {
+  DEFAULT_NAMESPACE,
+  stringifyEntityRef,
+} from '@backstage/catalog-model';
 
 const backend = createBackend();
+
+backend.add(import('@janus-idp/backstage-plugin-keycloak-backend/alpha'));
 
 backend.add(import('@backstage/plugin-app-backend/alpha'));
 backend.add(import('@backstage/plugin-proxy-backend/alpha'));
@@ -56,8 +61,6 @@ backend.add(import('@backstage/plugin-search-backend-module-techdocs/alpha'));
 // kubernetes
 backend.add(import('@backstage/plugin-kubernetes-backend/alpha'));
 
-backend.start();
-
 
 const myAuthProviderModule = createBackendModule({
   // This ID must be exactly "auth" because that's the plugin it targets
@@ -71,7 +74,7 @@ const myAuthProviderModule = createBackendModule({
         providers.registerProvider({
           // This ID must match the actual provider config, e.g. addressing
           // auth.providers.azure means that this must be "azure".
-          providerId: 'my-auth-provider',
+          providerId: 'keycloak',
           // Use createProxyAuthProviderFactory instead if it's one of the proxy
           // based providers rather than an OAuth based one
           factory: createOAuthProviderFactory({
@@ -80,7 +83,7 @@ const myAuthProviderModule = createBackendModule({
             async signInResolver(info, ctx) {
               const userRef = stringifyEntityRef({
                 kind: 'User',
-                name: info.result.userinfo.sub,
+                name: info.result.fullProfile.userinfo.sub,
                 namespace: DEFAULT_NAMESPACE,
               });
               return ctx.issueToken({
@@ -97,6 +100,5 @@ const myAuthProviderModule = createBackendModule({
   },
 });
 
-function stringifyEntityRef(arg0: { kind: string; name: any; namespace: any; }) {
-  throw new Error('Function not implemented.');
-}
+backend.add(myAuthProviderModule);
+backend.start();

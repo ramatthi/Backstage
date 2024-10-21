@@ -3,6 +3,7 @@ import {
   scmIntegrationsApiRef,
   ScmAuth,
 } from '@backstage/integration-react';
+import { OAuth2 } from '@backstage/core-app-api';
 import {
   AnyApiFactory,
   BackstageIdentityApi,
@@ -17,7 +18,7 @@ import {
   discoveryApiRef,
   oauthRequestApiRef,
 } from '@backstage/core-plugin-api';
-import {  OAuth2 } from "@backstage/core-app-api"
+
 
 
 export const oidcAuthApiRef: ApiRef<
@@ -47,11 +48,12 @@ export const apis: AnyApiFactory[] = [
         defaultScopes: ['openid', 'profile', 'email'],
         popupOptions: {
           size: {
-            width: 1000,
-            height: 1000,
+            width: 400,
+            height: 500,
           },
         },
       }),
   }),
+  
   ScmAuth.createDefaultApiFactory(),
 ];
